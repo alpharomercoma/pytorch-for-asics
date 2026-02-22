@@ -1,0 +1,89 @@
+# =============================================================================
+# Example Terraform Variables File
+# =============================================================================
+# Copy this file to terraform.tfvars and update with your values
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Required Variables
+# -----------------------------------------------------------------------------
+
+# Your GCP Project ID (required)
+project_id = "your-gcp-project-id"
+
+# -----------------------------------------------------------------------------
+# TPU Configuration (with defaults matching requirements)
+# -----------------------------------------------------------------------------
+
+# TPU instance name
+tpu_name = "tpuv3-alpha"
+
+# TPU zone - v3-8 is available in europe-west4-a
+tpu_zone = "europe-west4-a"
+
+# TPU accelerator type
+tpu_accelerator_type = "v3-8"
+
+# TPU runtime/software version
+tpu_runtime_version = "tpu-ubuntu2204-base"
+
+# Use spot (preemptible) TPU for cost savings
+tpu_spot        = true
+tpu_preemptible = true
+
+# -----------------------------------------------------------------------------
+# Disk Configuration
+# -----------------------------------------------------------------------------
+
+# Disk name
+disk_name = "tpuv3-alpha-disk"
+
+# Disk zone - Must match TPU zone for attachment!
+# NOTE: Original requirement specified europe-west1-b, but for disk attachment
+#       the disk must be in the same zone as the TPU (europe-west4-a)
+disk_zone = "europe-west4-a"
+
+# Disk type: pd-standard, pd-balanced, pd-ssd
+disk_type = "pd-balanced"
+
+# Disk size in GB
+disk_size_gb = 50
+
+# -----------------------------------------------------------------------------
+# Disk Attachment
+# -----------------------------------------------------------------------------
+
+# Attach the disk to the TPU VM
+attach_disk_to_tpu = true
+
+# Disk attachment mode: READ_WRITE or READ_ONLY
+disk_attachment_mode = "READ_WRITE"
+
+# -----------------------------------------------------------------------------
+# Network Configuration
+# -----------------------------------------------------------------------------
+
+# Enable external IPs for TPU workers
+enable_external_ips = false
+
+# VPC network (use "default" for the default network)
+network = "default"
+
+# Subnetwork (use "default" for the default subnetwork)
+subnetwork = "default"
+
+# -----------------------------------------------------------------------------
+# Labels
+# -----------------------------------------------------------------------------
+
+tpu_labels = {
+  environment = "development"
+  managed_by  = "terraform"
+  purpose     = "ml-training"
+}
+
+disk_labels = {
+  environment = "development"
+  managed_by  = "terraform"
+  purpose     = "tpu-storage"
+}
